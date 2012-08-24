@@ -33,7 +33,7 @@ function GameScene:update(dt)
 		boxes:get(i):rotate(0.0005 * dt)
 	end
 
-	if love.keyboard.isDown(" ") then
+	if love.keyboard.isDown("left") then
 		self.scene_manager:set_scene("menu")
 	end
 end

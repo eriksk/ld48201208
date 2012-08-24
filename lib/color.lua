@@ -37,3 +37,7 @@ end
 function Color.black()
 	return Color.new(0, 0, 0)
 end
+
+function Color.white()
+	return Color.new(255, 255, 255)
+end
