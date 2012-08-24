@@ -1,7 +1,7 @@
 Vec2 = {}
 Vec2.__index = Vec2
 
-function Vec2.create(x, y)
+function Vec2.new(x, y)
 	local v = {}
 	setmetatable(v, Vec2)
 

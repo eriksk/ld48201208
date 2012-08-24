@@ -1,13 +1,17 @@
 List = {}
 List.__index = List
 
-function List.create()
+function List.new()
 	local l = {}
 	setmetatable(l, List)
 
 	l.items = {}
 
 	return l
+end
+
+function List:get(index)
+	return self.items[index]
 end
 
 function List:size()
@@ -23,11 +27,11 @@ function List:remove(index)
 end
 
 function List:last()
-	self.items[#self.items]
+	return self.items[#self.items]
 end
 
 function List:first()
-	if size() > 0
+	if size() > 0 then
 		return self.items[1]
 	else
 		return nil

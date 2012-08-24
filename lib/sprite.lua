@@ -1,20 +1,24 @@
 Sprite = {}
 Sprite.__index = Sprite
 
-function Sprite.create(filename, x, y)
+function Sprite.new(filename, x, y)
 	local s = {}
 	setmetatable(s, Sprite)
 
 	s.texture = love.graphics.newImage("content/gfx/" .. filename .. ".png")
 	s.width = s.texture:getWidth()
 	s.height = s.texture:getHeight()
-	s.position = Vec2.create(x or 0.0, y or 0.0)
-	s.velocity = Vec2.create()
-	s.origin = Vec2.create(s.width / 2.0, s.height / 2.0)
+	s.position = Vec2.new(x or 0.0, y or 0.0)
+	s.velocity = Vec2.new()
+	s.origin = Vec2.new(s.width / 2.0, s.height / 2.0)
 	s.scale = 1.0
 	s.rotation = 0.0
 
 	return s
+end
+
+function Sprite:rotate(by)
+	self.rotation = self.rotation + by
 end
 
 function Sprite:update(dt)

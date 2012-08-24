@@ -7,10 +7,15 @@ function distance(x1, y1, x2, y2)
 end
 
 function clamp(value, min, max)
-	if value < min
+	if value < min then
 		return min
-	else if value > max
+	end
+	if value > max then
 		return max
 	end
 	return value
+end
+
+function create_sprite_sheet(texture, cols, rows, cell_size)
+	print("TODO")
 end
