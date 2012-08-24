@@ -1,13 +1,13 @@
 TextField = {}
 TextField.__index = TextField
 
-function TextField.new(text, x, y, font)
+function TextField.new(text, x, y, font, color)
 	local tf = {}
 	setmetatable(tf, TextField)
 
 	tf.font = font
-	tf.x = x
-	tf.y = y
+	tf.color = color or Color.new()
+	tf.position = Vec2.new(x or 0.0, y or 0.0)
 	tf.rotation = 0.0
 	tf.scale = Vec2.new(1.0, 1.0)
 	tf.origin = Vec2.new(0.0, 0.0)
@@ -16,6 +16,13 @@ function TextField.new(text, x, y, font)
 	tf:setText(text)
 
 	return tf
+end
+
+function TextField:set_color(color)
+	self.color.r = color.r
+	self.color.g = color.g
+	self.color.b = color.b
+	self.color.a = color.a
 end
 
 function TextField:set_align_mode(mode)
@@ -41,10 +48,11 @@ end
 
 function TextField:draw()
 	love.graphics.setFont(self.font)
+	set_color(self.color)
 	love.graphics.print(
 		self.text,
-		self.x, 
-		self.y, 
+		self.position.x, 
+		self.position.y, 
 		self.rotation, 
 		self.scale.x, 
 		self.scale.y, 

@@ -1,4 +1,5 @@
 require "lib/helpers"
+require 'lib/color'
 require "lib/list"
 require "lib/vec2"
 require "lib/sprite"
