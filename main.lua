@@ -17,10 +17,10 @@ require 'lib/particle'
 -- game specifics
 require 'lib/game/character'
 require 'lib/game/player_controller'
-require 'lib/game/player_2_controller'
 require 'lib/game/ai_controller'
 require 'lib/game/attack_manager'
 require 'lib/game/attack'
+require 'lib/game/hud'
 
 function love.load()
 	font = love.graphics.newFont("content/fonts/font.ttf", 24)

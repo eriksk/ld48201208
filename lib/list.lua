@@ -31,7 +31,7 @@ function List:last()
 end
 
 function List:first()
-	if size() > 0 then
+	if self:size() > 0 then
 		return self.items[1]
 	else
 		return nil

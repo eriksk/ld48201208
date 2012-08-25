@@ -24,7 +24,8 @@ function Character.new(filename, x, y, controller, attack_manager)
 	s.controller = controller
 	s.attacking = false
 	s.attack_manager = attack_manager
-	s.health = 100
+	s.max_health = 100
+	s.health = s.max_health
 
 	s.animation = "jump"
 	s.animations = {}
@@ -234,13 +235,6 @@ function Character:update(dt)
 end
 
 function Character:draw()
-	-- hud
-	set_color(Color.black())
-	love.graphics.print("Frame: " .. self.animations[self.animation]:getFrame(), 16, 16)
-	love.graphics.print("Animation: " .. self.animation, 16, 32)
-	love.graphics.print("Grounded: " .. tostring(self.grounded), 16, 48)
-	love.graphics.print("Speed: " .. tostring(math.abs(self.velocity.x)), 16, 64)
-
 	set_color(self.color)
 	love.graphics.draw(
 		self.textures[self.animations[self.animation]:getFrame() + 1],
@@ -252,14 +246,7 @@ function Character:draw()
 		self.origin.x,
 		self.origin.y
 	)
-	
-	--local left = self.position.x - self.origin.x * math.abs(self.scale.x)
-	--local right = self.position.x + self.origin.x * math.abs(self.scale.x) 
-	--local top = self.position.y - self.origin.y * math.abs(self.scale.y)
-	--local bottom = self.position.y + self.origin.y * math.abs(self.scale.y)
---
-	--love.graphics.rectangle("line", left, top, right - left, bottom - top)
---
+
 	set_color(Color.new(0, 0, 0, 80))
 	love.graphics.draw(
 		self.textures[self.animations[self.animation]:getFrame() + 1],

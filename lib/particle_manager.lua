@@ -41,8 +41,6 @@ function ParticleManager:update(dt)
 end
 
 function ParticleManager:draw()
-	set_color(Color.black())
-	love.graphics.print("Particles: " .. #self.particles, 400, 16)
 	set_color(Color.white())
 	for i=1,#self.particles do
 		local p = self.particles[i]

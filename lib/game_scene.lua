@@ -8,6 +8,7 @@ function GameScene.new(scene_manager)
 	s.scene_manager = scene_manager
 	s.name = "game"
 	s.transition_duration = 1000
+	s.state = "running"
 
 	return s
 end
@@ -16,6 +17,7 @@ function GameScene:load()
 	self.particle_manager = ParticleManager.new()
 	self.attack_manager = AttackManager.new(self.particle_manager)
 
+	self.hud = Hud.new(self)
 	self.players = List.new()
 	local p1_controls = {
 		left = "a",
@@ -47,28 +49,43 @@ function GameScene:on_activated()
 	self:load()
 end
 
+function GameScene:game_over(winner, loser)
+	self.state = "game_over"
+	audio_manager:play_sound("k_o")
+end
+
 function GameScene:update(dt)
-	self.attack_manager:update(self.players, dt)
-	for i=1,self.players:size() do
-		-- player vs player collision
-		for j=1,self.players:size() do
-			if i == j then
-			else
-				local p1 = self.players:get(i)
-				local p2 = self.players:get(j)
-				if p1:contains(p2.position.x, p2.position.y) then
-					local diff = lerp(1.0, 0.0, math.abs(p1.position.x - p2.position.x) / 32.0)
-					if p1.position.x < p2.position.x then
-						p1.position.x = p1.position.x - (diff * 0.5) * dt
-					else
-						p1.position.x = p1.position.x + (diff * 0.5) * dt
+	if self.state == "running" then
+		self.attack_manager:update(self.players, dt)
+		for i=1,self.players:size() do
+			-- player vs player collision
+			for j=1,self.players:size() do
+				if i == j then
+				else
+					local p1 = self.players:get(i)
+					local p2 = self.players:get(j)
+					if p1:contains(p2.position.x, p2.position.y) then
+						local diff = lerp(1.0, 0.0, math.abs(p1.position.x - p2.position.x) / 32.0)
+						if p1.position.x < p2.position.x then
+							p1.position.x = p1.position.x - (diff * 0.5) * dt
+						else
+							p1.position.x = p1.position.x + (diff * 0.5) * dt
+						end
 					end
 				end
 			end
+			self.players:get(i):update(dt)
 		end
-		self.players:get(i):update(dt)
+		self.particle_manager:update(dt)
+		self.hud:update(dt)
+
+		if self.players:first().health <= 0.0 then
+			self:game_over(self.players:first(), self.players:first())
+		elseif self.players:last().health <= 0.0 then
+			self:game_over(self.players:last(), self.players:first())
+		end
+	elseif self.state == "game_over" then
 	end
-	self.particle_manager:update(dt)
 
 	if love.keyboard.isDown("return") then
 		self.scene_manager:set_scene("menu")
@@ -84,4 +101,5 @@ function GameScene:draw()
 
     self.particle_manager:draw()
     self.attack_manager:draw()
+    self.hud:draw()
 end

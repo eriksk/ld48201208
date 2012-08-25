@@ -13,9 +13,14 @@ function TextField.new(text, x, y, font, color)
 	tf.origin = Vec2.new(0.0, 0.0)
 	tf.text = ""
 	tf.align_mode = "center"
-	tf:setText(text)
+	tf:set_text(text)
 
 	return tf
+end
+
+function TextField:set_scale(scale)
+	self.scale.x = scale
+	self.scale.y = scale
 end
 
 function TextField:set_color(color)
@@ -27,10 +32,10 @@ end
 
 function TextField:set_align_mode(mode)
 	self.align_mode = mode
-	self:setText(self.text)
+	self:set_text(self.text)
 end
 
-function TextField:setText(text)
+function TextField:set_text(text)
 	self.text = text
 	if self.align_mode == "right" then
 		self.origin.x = 0
