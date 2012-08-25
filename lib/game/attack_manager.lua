@@ -13,6 +13,7 @@ end
 
 function AttackManager:reg_atk(attack)
 	self.attacks[#self.attacks + 1] = attack
+	audio_manager:play_sound("swoosh_" .. (1 + math.floor((math.random() * 2))))
 end
 
 function AttackManager:update(characters, dt)	
@@ -26,6 +27,8 @@ function AttackManager:update(characters, dt)
 				if character:contains(attack.position.x, attack.position.y) then
 					self.particle_manager:add(character.position.x, character.position.y, 5)
 					character:hit(attack.direction, attack.damage)
+					audio_manager:play_sound("hit_" .. (1 + math.floor((math.random() * 3))))
+					audio_manager:play_sound("ouch_" .. (1 + math.floor((math.random() * 3))))
 				end
 			end	 	
 		end 

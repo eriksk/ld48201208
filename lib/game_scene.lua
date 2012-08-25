@@ -23,6 +23,9 @@ function GameScene:load()
 	self.players:add(p2)
 
 	TiledMap_Load("content/maps/map1.tmx", 32, "content/gfx/tiles.png")
+
+	--audio_manager:play_sound("suck_it")
+	audio_manager:play_song("song1")
 end
 
 function GameScene:on_activated()

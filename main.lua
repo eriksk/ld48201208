@@ -41,13 +41,24 @@ function love.load()
 
 	audio_manager = AudioManager.new()
 	audio_manager:add_sound("startup")
+	audio_manager:add_sound("hit_1", ".ogg")
+	audio_manager:add_sound("hit_2", ".ogg")
+	audio_manager:add_sound("hit_3", ".ogg")
+	audio_manager:add_sound("k_o", ".ogg")
+	audio_manager:add_sound("ouch_1", ".ogg")
+	audio_manager:add_sound("ouch_2", ".ogg")
+	audio_manager:add_sound("ouch_3", ".ogg")
+	audio_manager:add_sound("suck_it", ".ogg")
+	audio_manager:add_sound("swoosh_1", ".ogg")
+	audio_manager:add_sound("swoosh_2", ".ogg")
+
 	audio_manager:add_song("menu")
+	audio_manager:add_song("song1")
 
 	scene_manager = SceneManager.new(audio_manager)
 	scene_manager:add_scene(GameScene.new(scene_manager))
 	scene_manager:add_scene(MenuScene.new(scene_manager))
 	scene_manager:set_scene("game")
-
 end
 
 function initialize()

@@ -228,7 +228,7 @@ function Character:update(dt)
 
 	self.position.x = self.position.x + self.velocity.x * dt
 	self.position.y = self.position.y + self.velocity.y * dt
-	self.position.x = clamp(self.position.x, 0, screen_width)
+	self.position.x = clamp(self.position.x, 32, screen_width - 32)
 
 	self.animations[self.animation]:update(dt)
 end
@@ -253,23 +253,23 @@ function Character:draw()
 		self.origin.y
 	)
 	
-	local left = self.position.x - self.origin.x * math.abs(self.scale.x)
-	local right = self.position.x + self.origin.x * math.abs(self.scale.x) 
-	local top = self.position.y - self.origin.y * math.abs(self.scale.y)
-	local bottom = self.position.y + self.origin.y * math.abs(self.scale.y)
-
-	love.graphics.rectangle("line", left, top, right - left, bottom - top)
-
-	set_color(Color.new(0, 0, 0, 80))
-	love.graphics.draw(
-		self.textures[self.animations[self.animation]:getFrame() + 1],
-		self.position.x - self.width,
-		ground + (ground - self.position.y) + self.height * self.scale.y,
-		self.rotation,
-		self.scale.x,
-		-self.scale.y,
-		self.origin.x,
-		self.origin.y,
-		0.5 * self.scale.x
-	)
+	--local left = self.position.x - self.origin.x * math.abs(self.scale.x)
+	--local right = self.position.x + self.origin.x * math.abs(self.scale.x) 
+	--local top = self.position.y - self.origin.y * math.abs(self.scale.y)
+	--local bottom = self.position.y + self.origin.y * math.abs(self.scale.y)
+--
+	--love.graphics.rectangle("line", left, top, right - left, bottom - top)
+--
+	--set_color(Color.new(0, 0, 0, 80))
+	--love.graphics.draw(
+	--	self.textures[self.animations[self.animation]:getFrame() + 1],
+	--	self.position.x - self.width,
+	--	ground + (ground - self.position.y) + self.height * self.scale.y,
+	--	self.rotation,
+	--	self.scale.x,
+	--	-self.scale.y,
+	--	self.origin.x,
+	--	self.origin.y,
+	--	0.5 * self.scale.x
+	--)
 end

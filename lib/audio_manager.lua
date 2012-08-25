@@ -11,8 +11,8 @@ function AudioManager:new()
 	return a
 end
 
-function AudioManager:add_sound(name)
-	self.sounds[name] = love.audio.newSource("content/audio/" .. name .. ".wav", "static")
+function AudioManager:add_sound(name, file_type)
+	self.sounds[name] = love.audio.newSource("content/audio/" .. name .. (file_type or ".wav"), "static")
 end
 
 function AudioManager:add_song(name)
@@ -20,6 +20,7 @@ function AudioManager:add_song(name)
 end
 
 function AudioManager:play_sound(name)
+	love.audio.stop(self.sounds[name])
 	love.audio.play(self.sounds[name])
 end
 

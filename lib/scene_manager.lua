@@ -22,9 +22,9 @@ end
 
 function SceneManager:set_scene(name)
 	self.current_scene = name
-	self.scenes[self.current_scene]:on_activated()
 	-- stop all songs
 	self.audio_manager:stop_all()
+	self.scenes[self.current_scene]:on_activated()
 	-- reset color
 	set_color(Color.white())
 end
