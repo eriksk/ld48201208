@@ -38,8 +38,20 @@ function clamp(value, min, max)
 	return value
 end
 
-function create_sprite_sheet(texture, cols, rows, cell_size)
-	print("TODO")
+function create_sprite_sheet(filename, cols, rows, cell_size)
+	local images = {}
+	local img = love.image.newImageData(filename)
+	local i = 1
+    for row=0,rows do
+        for col=0,cols do
+            local sprite = love.image.newImageData(32, 32)
+            sprite:paste(img, 0, 0, col * cell_size, row * cell_size, cell_size, cell_size)
+            images[i] = love.graphics.newImage(sprite)
+            images[i]:setFilter(texture_filter, texture_filter)
+            i = i + 1
+        end
+    end
+    return images
 end
 
 function set_color(color)

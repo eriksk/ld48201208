@@ -1,3 +1,4 @@
+-- framework
 require "lib/helpers"
 require 'lib/color'
 require "lib/list"
@@ -8,6 +9,13 @@ require 'lib/audio_manager'
 require 'lib/scene_manager'
 require 'lib/game_scene'
 require 'lib/menu_scene'
+require 'lib/animation'
+require 'lib/tmx_map'
+-- game specifics
+require 'lib/game/character'
+require 'lib/game/player_controller'
+require 'lib/game/player_2_controller'
+require 'lib/game/ai_controller'
 
 function love.load()
 	font = love.graphics.newFont("content/fonts/font.ttf", 24)
@@ -22,6 +30,8 @@ function love.load()
 		end
 	end
 
+	initialize()
+
 	total_time = 0.0
 
 	audio_manager = AudioManager.new()
@@ -31,8 +41,21 @@ function love.load()
 	scene_manager = SceneManager.new(audio_manager)
 	scene_manager:add_scene(GameScene.new(scene_manager))
 	scene_manager:add_scene(MenuScene.new(scene_manager))
-	scene_manager:set_scene("menu")
+	scene_manager:set_scene("game")
 
+end
+
+function initialize()
+	screen_width = 800
+	screen_height = 640
+	fullscreen = false
+	love.graphics.setMode(screen_width, screen_height, fullscreen)
+	love.graphics.setBackgroundColor(135, 206, 250)
+	content_path = "content/"
+	texture_filter = "nearest"
+	gravity = 0.001
+	friction = 0.001
+	ground = 500
 end
 
 function love.update(dt)

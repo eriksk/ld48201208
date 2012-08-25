@@ -13,14 +13,13 @@ function GameScene.new(scene_manager)
 end
 
 function GameScene:load()
-	boxes = List.new()	
+	self.players = List.new()
+	self.players:add(Character.new("player", 100, 300, Player2Controller.new()))
+	local p2 = Character.new("player2", screen_width - 100, 300, AIController.new())
+	p2:set_dir("left")
+	self.players:add(p2)
 
-	box = Sprite.new('box', 200, 200)
-	boxes:add(box)
-	boxes:add(box)
-	boxes:add(box)
-	boxes:add(box)
-	boxes:add(box)
+	TiledMap_Load("content/maps/map1.tmx", 32, "content/gfx/tiles.png")
 end
 
 function GameScene:on_activated()
@@ -28,19 +27,18 @@ function GameScene:on_activated()
 end
 
 function GameScene:update(dt)
-	for i=1,boxes:size() do
-		boxes:get(i):update(dt)
-		boxes:get(i):rotate(0.0005 * dt)
+	for i=1,self.players:size() do
+		self.players:get(i):update(dt)
 	end
-
-	if love.keyboard.isDown("left") then
-		self.scene_manager:set_scene("menu")
-	end
+	--if love.keyboard.isDown("left") then
+	--	self.scene_manager:set_scene("menu")
+	--end
 end
 
-function GameScene:draw(dt)
-	for i=1,boxes:size() do
-		boxes:get(i):draw()
-	end
+function GameScene:draw()
+    set_color(Color.white())
+    TiledMap_DrawNearCam(screen_width / 2.0, screen_height / 2.0)
+    for i=1,self.players:size() do
+    	self.players:get(i):draw()
+    end
 end
-
