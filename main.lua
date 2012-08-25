@@ -11,6 +11,9 @@ require 'lib/game_scene'
 require 'lib/menu_scene'
 require 'lib/animation'
 require 'lib/tmx_map'
+require 'lib/particle_manager'
+require 'lib/particle'
+
 -- game specifics
 require 'lib/game/character'
 require 'lib/game/player_controller'

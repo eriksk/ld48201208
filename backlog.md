@@ -55,10 +55,11 @@ Abilities:
 * linux?
 
 ## working on
-* Tiles
+
 
 ## done
 * Controlling character
 * Characters
 * Animations
 * Map
+* Tiles

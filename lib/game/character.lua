@@ -33,7 +33,7 @@ function Character.new(filename, x, y, controller, attack_manager)
 	s.animations["jump"] = Animation.new({18, 19}, 100)
 	s.animations["slide"] = Animation.new({27, 28}, 50)
 	s.animations["punch"] = Animation.new({36, 37, 38}, 50)
-	s.animations["kick"] = Animation.new({0}, 500)
+	s.animations["kick"] = Animation.new({45, 46, 47}, 100)
 	s.animations["hit"] = Animation.new({0}, 500)
 	s.flipped = false
 	s:fall_off()
@@ -78,7 +78,6 @@ function Character:rotate(by)
 end
 
 function Character:hit(direction, damage)
-	print(direction)
 	local angle = 0
 	if direction == "left" then
 		angle = to_radians(180)
@@ -160,6 +159,20 @@ function Character:atk_kick()
 		if self.velocity.y > 0.0 then
 			self.velocity.y = 0.0
 		end
+
+		local direction = "right"
+		local damage = 20
+		if self.flipped then
+			direction = "left"
+		end
+		-- register punch
+		self.attack_manager:reg_atk(
+			Attack.new(
+				self.id, 
+				Vec2.new(self.position.x + (self.width * clamp(self.scale.x, -1.0, 1.0)), self.position.y), 
+				direction,
+				damage)
+		)
 	end
 end
 
@@ -175,19 +188,19 @@ function Character:atk_special()
 end
 
 function Character:update(dt)
+	self.controller:update(self, dt)
 	if self.attacking then
 		if self.animations[self.animation].ticks > 0 then
 			if self.grounded then
-				self:fall_off()
-			else
 				self:set_anim("idle")
+			else
+				self:fall_off()
 			end
 			self.attacking = false
 		end
 	else
-	end
-	self.controller:update(self, dt)
-	
+	end	
+
 	if self.grounded then
 		-- do nothing yet
 	else

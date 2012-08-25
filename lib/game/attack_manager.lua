@@ -1,11 +1,12 @@
 AttackManager = {}
 AttackManager.__index = AttackManager
 
-function AttackManager:new()
+function AttackManager.new(particle_manager)
 	local a = {}
 	setmetatable(a, AttackManager)	
 
 	a.attacks = {}
+	a.particle_manager = particle_manager
 
 	return a
 end
@@ -23,6 +24,7 @@ function AttackManager:update(characters, dt)
 				-- do nothing
 			else
 				if character:contains(attack.position.x, attack.position.y) then
+					self.particle_manager:add(character.position.x, character.position.y, 5)
 					character:hit(attack.direction, attack.damage)
 				end
 			end	 	
@@ -35,10 +37,4 @@ function AttackManager:update(characters, dt)
 end
 
 function AttackManager:draw()
-	-- TODO: remove
-	set_color(Color.red())
-	for i=1,#self.attacks do
-		local attack = self.attacks[i] 
-		love.graphics.print("x", attack.position.x, attack.position.y)
-	end
 end

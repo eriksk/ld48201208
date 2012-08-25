@@ -13,7 +13,8 @@ function GameScene.new(scene_manager)
 end
 
 function GameScene:load()
-	self.attack_manager = AttackManager.new()
+	self.particle_manager = ParticleManager.new()
+	self.attack_manager = AttackManager.new(self.particle_manager)
 
 	self.players = List.new()
 	self.players:add(Character.new("player", 100, 300, Player2Controller.new(), self.attack_manager))
@@ -49,6 +50,8 @@ function GameScene:update(dt)
 		end
 		self.players:get(i):update(dt)
 	end
+	self.particle_manager:update(dt)
+
 	if love.keyboard.isDown("return") then
 		self.scene_manager:set_scene("menu")
 	end
@@ -61,5 +64,6 @@ function GameScene:draw()
     	self.players:get(i):draw()
     end
 
+    self.particle_manager:draw()
     self.attack_manager:draw()
 end
