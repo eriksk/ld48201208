@@ -29,6 +29,7 @@ function AttackManager:update(characters, dt)
 					character:hit(attack.direction, attack.damage)
 					audio_manager:play_sound("hit_" .. (1 + math.floor((math.random() * 3))))
 					audio_manager:play_sound("ouch_" .. (1 + math.floor((math.random() * 3))))
+					dt_slow_down = 300
 				end
 			end	 	
 		end 

@@ -16,6 +16,7 @@ end
 function GameScene:load()
 	self.particle_manager = ParticleManager.new()
 	self.attack_manager = AttackManager.new(self.particle_manager)
+	self.state = "running"
 
 	self.hud = Hud.new(self)
 	self.players = List.new()
@@ -41,7 +42,7 @@ function GameScene:load()
 
 	TiledMap_Load("content/maps/map1.tmx", 32, "content/gfx/tiles.png")
 
-	--audio_manager:play_sound("suck_it")
+	audio_manager:play_sound("suck_it")
 	audio_manager:play_song("song1")
 end
 

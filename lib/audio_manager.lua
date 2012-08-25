@@ -17,6 +17,7 @@ end
 
 function AudioManager:add_song(name)
 	self.songs[name] = love.audio.newSource("content/audio/" .. name .. ".wav")
+	self.songs[name]:setLooping(true)
 end
 
 function AudioManager:play_sound(name)

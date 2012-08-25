@@ -54,11 +54,12 @@ function MenuScene:update(dt)
 			self:title_done()
 		end
 	elseif self.state == "waiting" then
-		-- check for input to continue and change screen
-		if love.keyboard.isDown(" ") then
-			self.scene_manager:set_scene("game")
-		end
 	else
+	end
+	
+	-- check for input to continue and change screen
+	if love.keyboard.isDown(" ") then
+		self.scene_manager:set_scene("game")
 	end
 end
 

@@ -93,8 +93,8 @@ function Character:hit(direction, damage)
 	end
 	self:set_anim("hit")
 	self.health = self.health - damage
-	self.velocity.x = math.cos(angle) * damage * 0.05
-	self.velocity.y = math.sin(angle) * damage * 0.05
+	self.velocity.x = math.cos(angle) * damage * 0.01
+	self.velocity.y = math.sin(angle) * damage * 0.01
 end
 
 function Character:move(dir, dt)

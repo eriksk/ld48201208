@@ -72,10 +72,15 @@ function initialize()
 	gravity = 0.001
 	friction = 0.001
 	ground = 500
+	dt_slow_down = 0
 end
 
 function love.update(dt)
 	dt = dt * 1000.0 -- to ms
+	if dt_slow_down > 0.0 then
+		dt_slow_down = dt_slow_down - dt
+		dt = dt * 0.5
+	end
 
 	-- global timer
 	total_time = total_time + dt
