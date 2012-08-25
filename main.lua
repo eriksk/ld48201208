@@ -58,7 +58,7 @@ function love.load()
 	scene_manager = SceneManager.new(audio_manager)
 	scene_manager:add_scene(GameScene.new(scene_manager))
 	scene_manager:add_scene(MenuScene.new(scene_manager))
-	scene_manager:set_scene("game")
+	scene_manager:set_scene("menu")
 end
 
 function initialize()

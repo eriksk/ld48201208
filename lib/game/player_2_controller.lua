@@ -9,8 +9,6 @@ function Player2Controller:new()
 end
 
 function Player2Controller:input(c, dt)	
-	
-
 	if c.attacking then
 	else
 		if c.grounded then

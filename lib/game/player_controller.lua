@@ -1,42 +1,52 @@
 PlayerController = {}
 PlayerController.__index = PlayerController
 
-function PlayerController:new()
+function PlayerController.new(controls)
 	local p = {}
 	setmetatable(p, PlayerController)
+
+	p.controls = controls
 
 	return p
 end
 
 function PlayerController:input(c, dt)	
-	if c.grounded then
-		if love.keyboard.isDown("left") then
-			c:move("left", dt)
-			c:set_anim("walk")
-			c:set_dir("left")
-		elseif love.keyboard.isDown("right") then
-			c:move("right", dt)
-			c:set_anim("walk")
-			c:set_dir("right")
-		else
-			if c.velocity.x > 0.0 or c.velocity.x < 0.0 then
-				c:set_anim("slide")
+	if c.attacking then
+	else
+		if c.grounded then
+			if love.keyboard.isDown(self.controls["left"]) then
+				c:move("left", dt)
+				c:set_anim("walk")
+				c:set_dir("left")
+			elseif love.keyboard.isDown(self.controls["right"]) then
+				c:move("right", dt)
+				c:set_anim("walk")
+				c:set_dir("right")
 			else
-				c:set_anim("idle")
+				if c.velocity.x > 0.0 or c.velocity.x < 0.0 then
+					c:set_anim("slide")
+				else
+					c:set_anim("idle")
+				end
+			end
+
+			if love.keyboard.isDown(self.controls["jump"]) then
+				c:jump()
+			end
+		else
+			if love.keyboard.isDown(self.controls["left"]) then
+				c:move("left", dt)
+				c:set_dir("left")
+			elseif love.keyboard.isDown(self.controls["right"]) then
+				c:move("right", dt)
+				c:set_dir("right")
+			else
 			end
 		end
-
-		if love.keyboard.isDown("up") then
-			c:jump()
-		end
-	else
-		if love.keyboard.isDown("left") then
-			c:move("left", dt)
-			c:set_dir("left")
-		elseif love.keyboard.isDown("right") then
-			c:move("right", dt)
-			c:set_dir("right")
-		else
+		if love.keyboard.isDown(self.controls["punch"]) then
+			c:atk_punch()
+		elseif love.keyboard.isDown(self.controls["kick"]) then
+			c:atk_kick()
 		end
 	end
 end

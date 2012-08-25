@@ -260,16 +260,16 @@ function Character:draw()
 --
 	--love.graphics.rectangle("line", left, top, right - left, bottom - top)
 --
-	--set_color(Color.new(0, 0, 0, 80))
-	--love.graphics.draw(
-	--	self.textures[self.animations[self.animation]:getFrame() + 1],
-	--	self.position.x - self.width,
-	--	ground + (ground - self.position.y) + self.height * self.scale.y,
-	--	self.rotation,
-	--	self.scale.x,
-	--	-self.scale.y,
-	--	self.origin.x,
-	--	self.origin.y,
-	--	0.5 * self.scale.x
-	--)
+	set_color(Color.new(0, 0, 0, 80))
+	love.graphics.draw(
+		self.textures[self.animations[self.animation]:getFrame() + 1],
+		self.position.x - self.width,
+		ground + (ground - self.position.y) + self.height * self.scale.y,
+		self.rotation,
+		self.scale.x,
+		-self.scale.y,
+		self.origin.x,
+		self.origin.y,
+		0.5 * self.scale.x
+	)
 end

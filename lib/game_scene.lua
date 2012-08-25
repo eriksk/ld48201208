@@ -17,8 +17,23 @@ function GameScene:load()
 	self.attack_manager = AttackManager.new(self.particle_manager)
 
 	self.players = List.new()
-	self.players:add(Character.new("player", 100, 300, Player2Controller.new(), self.attack_manager))
-	local p2 = Character.new("player2", screen_width - 100, 300, PlayerController.new(), self.attack_manager)
+	local p1_controls = {
+		left = "a",
+		right = "d",
+		jump = "w",
+		punch = "g",
+		kick = "h"
+	}
+	local p2_controls = {
+		left = "left",
+		right = "right",
+		jump = "up",
+		punch = "kp0",
+		kick = "kp."
+	}
+
+	self.players:add(Character.new("player", 100, 300, PlayerController.new(p1_controls), self.attack_manager))
+	local p2 = Character.new("player2", screen_width - 100, 300, PlayerController.new(p2_controls), self.attack_manager)
 	p2:set_dir("left")
 	self.players:add(p2)
 
