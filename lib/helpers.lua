@@ -57,3 +57,7 @@ end
 function set_color(color)
 	love.graphics.setColor(color.r, color.g, color.b, color.a)
 end
+
+function to_radians(degrees)
+	return degrees * math.pi / 180.0
+end

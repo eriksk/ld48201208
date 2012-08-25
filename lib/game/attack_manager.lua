@@ -23,7 +23,7 @@ function AttackManager:update(characters, dt)
 				-- do nothing
 			else
 				if character:contains(attack.position.x, attack.position.y) then
-					print("KAPOW!")
+					character:hit(attack.direction, attack.damage)
 				end
 			end	 	
 		end 
@@ -35,6 +35,7 @@ function AttackManager:update(characters, dt)
 end
 
 function AttackManager:draw()
+	-- TODO: remove
 	set_color(Color.red())
 	for i=1,#self.attacks do
 		local attack = self.attacks[i] 

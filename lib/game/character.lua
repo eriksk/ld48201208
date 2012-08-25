@@ -77,6 +77,26 @@ function Character:rotate(by)
 	self.rotation = self.rotation + by
 end
 
+function Character:hit(direction, damage)
+	print(direction)
+	local angle = 0
+	if direction == "left" then
+		angle = to_radians(180)
+		self:set_dir("right")
+	elseif direction == "right" then
+		angle = to_radians(0)
+		self:set_dir("left")
+	elseif direction == "up" then
+		angle = to_radians(-90)
+	elseif direction == "down" then
+		angle = to_radians(90)
+	end
+	self:set_anim("hit")
+	self.health = self.health - damage
+	self.velocity.x = math.cos(angle) * damage * 0.05
+	self.velocity.y = math.sin(angle) * damage * 0.05
+end
+
 function Character:move(dir, dt)
 	if dir == "left" then
 		self.velocity.x = self.velocity.x - self.speed * dt
