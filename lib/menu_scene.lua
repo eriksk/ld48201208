@@ -54,7 +54,7 @@ function MenuScene:update(dt)
 			self:title_done()
 		end
 	elseif self.state == "waiting" then
-		-- TODO: check for input to continue and change screen
+		-- check for input to continue and change screen
 		if love.keyboard.isDown(" ") then
 			self.scene_manager:set_scene("game")
 		end
@@ -63,6 +63,8 @@ function MenuScene:update(dt)
 end
 
 function MenuScene:draw()
+	set_color(Color.black())
+	love.graphics.rectangle("fill", 0, 0, screen_width, screen_height)
 	self.title:draw()
 	if self.state == "waiting" then
 		self.title.position.y = 100 + math.sin(total_time * 0.001) * 10.0

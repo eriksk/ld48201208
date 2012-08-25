@@ -13,9 +13,11 @@ function GameScene.new(scene_manager)
 end
 
 function GameScene:load()
+	self.attack_manager = AttackManager.new()
+
 	self.players = List.new()
-	self.players:add(Character.new("player", 100, 300, Player2Controller.new()))
-	local p2 = Character.new("player2", screen_width - 100, 300, AIController.new())
+	self.players:add(Character.new("player", 100, 300, Player2Controller.new(), self.attack_manager))
+	local p2 = Character.new("player2", screen_width - 100, 300, PlayerController.new(), self.attack_manager)
 	p2:set_dir("left")
 	self.players:add(p2)
 
@@ -27,12 +29,29 @@ function GameScene:on_activated()
 end
 
 function GameScene:update(dt)
+	self.attack_manager:update(self.players, dt)
 	for i=1,self.players:size() do
+		-- player vs player collision
+		for j=1,self.players:size() do
+			if i == j then
+			else
+				local p1 = self.players:get(i)
+				local p2 = self.players:get(j)
+				if p1:contains(p2.position.x, p2.position.y) then
+					local diff = lerp(1.0, 0.0, math.abs(p1.position.x - p2.position.x) / 32.0)
+					if p1.position.x < p2.position.x then
+						p1.position.x = p1.position.x - (diff * 0.5) * dt
+					else
+						p1.position.x = p1.position.x + (diff * 0.5) * dt
+					end
+				end
+			end
+		end
 		self.players:get(i):update(dt)
 	end
-	--if love.keyboard.isDown("left") then
-	--	self.scene_manager:set_scene("menu")
-	--end
+	if love.keyboard.isDown("return") then
+		self.scene_manager:set_scene("menu")
+	end
 end
 
 function GameScene:draw()
@@ -41,4 +60,6 @@ function GameScene:draw()
     for i=1,self.players:size() do
     	self.players:get(i):draw()
     end
+
+    self.attack_manager:draw()
 end
