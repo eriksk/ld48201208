@@ -17,9 +17,7 @@ win:
 * Screencaps
 
 ## working on
-* Colorize p2
 * Check for TODO:s
-* Wiggle function for text!
 * Caption
 
 ## done
@@ -43,3 +41,4 @@ win:
 * And fix cooldown on specials
 * 3..2..1.. FIGHT!
 * Special evolutionary attacks, reuse is key
+* Colorize p2

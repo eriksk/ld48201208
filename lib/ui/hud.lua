@@ -59,7 +59,7 @@ function Hud:draw_game_over_screen(p1, p2)
 	if p1.score > p2.score then
 		love.graphics.print("Player 1 Wins!", x, y)
 	else
-		love.graphics.print("Player 1 Wins!", x, y)		
+		love.graphics.print("Player 2 Wins!", x, y)		
 	end
 end
 

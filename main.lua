@@ -35,15 +35,6 @@ function love.load()
 	font = love.graphics.newFont("content/fonts/font.ttf", 24)
 	love.graphics.setFont(font)
 
-	-- TODO: resolution, probably just go with static 800 x 600
-	modes = love.graphics.getModes()
-	for k,v in pairs(modes) do
-		--print(k)
-		for k1,v1 in pairs(v) do
-			--print(k1, v1)
-		end
-	end
-
 	initialize()
 
 	total_time = 0.0
@@ -82,6 +73,7 @@ function initialize()
 	love.graphics.setBackgroundColor(135, 206, 250)
 	content_path = "content/"
 	texture_filter = "nearest"
+	love.graphics.setCaption("Evo Fight")
 	gravity = 0.0008
 	friction = 0.001
 	ground = 500
