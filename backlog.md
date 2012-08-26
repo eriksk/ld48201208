@@ -4,8 +4,11 @@
 
 Fighting game where you evolve as a character gaining new special attacks.
 
+### Special attack system
+Start: random attack
+win:
+
 ## coming up
-* Special evolutionary attacks
 * Death animation in slow-mo
 * Hit animation? or is sliding enough?
 * Menu
@@ -15,7 +18,9 @@ Fighting game where you evolve as a character gaining new special attacks.
 * linux?
 
 ## working on
-
+* Special evolutionary attacks
+	* Hadouken
+	* Remake particlemanager to handle different types
 
 ## done
 * Sounds

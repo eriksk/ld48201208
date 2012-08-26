@@ -21,6 +21,8 @@ require 'lib/game/ai_controller'
 require 'lib/game/attack_manager'
 require 'lib/game/attack'
 require 'lib/game/hud'
+--- special attacks
+require 'lib/game/specials/hadouken'
 
 function love.load()
 	font = love.graphics.newFont("content/fonts/font.ttf", 24)
@@ -51,6 +53,7 @@ function love.load()
 	audio_manager:add_sound("suck_it", ".ogg")
 	audio_manager:add_sound("swoosh_1", ".ogg")
 	audio_manager:add_sound("swoosh_2", ".ogg")
+	audio_manager:add_sound("hadouken", ".wav")
 
 	audio_manager:add_song("menu")
 	audio_manager:add_song("song1")
@@ -58,7 +61,7 @@ function love.load()
 	scene_manager = SceneManager.new(audio_manager)
 	scene_manager:add_scene(GameScene.new(scene_manager))
 	scene_manager:add_scene(MenuScene.new(scene_manager))
-	scene_manager:set_scene("menu")
+	scene_manager:set_scene("game")
 end
 
 function initialize()

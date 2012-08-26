@@ -10,3 +10,7 @@ function Vec2.new(x, y)
 
 	return v
 end
+
+function Vec2:angle()
+	return math.atan2(self.y, self.x)
+end

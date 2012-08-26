@@ -25,18 +25,20 @@ function GameScene:load()
 		right = "d",
 		jump = "w",
 		punch = "g",
-		kick = "h"
+		kick = "h",
+		special = "j"
 	}
 	local p2_controls = {
 		left = "left",
 		right = "right",
 		jump = "up",
 		punch = "kp0",
-		kick = "kp."
+		kick = "kp.",
+		special = "kp1"
 	}
 
 	self.players:add(Character.new("player", 100, 300, PlayerController.new(p1_controls), self.attack_manager))
-	local p2 = Character.new("player2", screen_width - 100, 300, PlayerController.new(p2_controls), self.attack_manager)
+	local p2 = Character.new("player2", screen_width - 100, 300, AIController.new(), self.attack_manager)
 	p2:set_dir("left")
 	self.players:add(p2)
 
@@ -75,8 +77,10 @@ function GameScene:update(dt)
 					end
 				end
 			end
-			self.players:get(i):update(dt)
 		end
+		self.players:first():update(dt, self.players:last())
+		self.players:last():update(dt, self.players:first())
+
 		self.particle_manager:update(dt)
 		self.hud:update(dt)
 

@@ -24,8 +24,9 @@ function Character.new(filename, x, y, controller, attack_manager)
 	s.controller = controller
 	s.attacking = false
 	s.attack_manager = attack_manager
-	s.max_health = 100
+	s.max_health = 1000
 	s.health = s.max_health
+	s.special = Hadouken.new()
 
 	s.animation = "jump"
 	s.animations = {}
@@ -35,7 +36,8 @@ function Character.new(filename, x, y, controller, attack_manager)
 	s.animations["slide"] = Animation.new({27, 28}, 50)
 	s.animations["punch"] = Animation.new({36, 37, 38}, 50)
 	s.animations["kick"] = Animation.new({45, 46, 47}, 100)
-	s.animations["hit"] = Animation.new({0}, 500)
+	s.animations["special"] = Animation.new({0}, 500)
+	s.animations["hit"] = Animation.new({0}, 100)
 	s.flipped = false
 	s:fall_off()
 
@@ -110,6 +112,7 @@ function Character:jump()
 		self.velocity.y = -0.5
 		self.grounded = false
 		self:set_anim("jump")
+		audio_manager:play_sound("swoosh_1")
 	end
 end
 
@@ -123,6 +126,13 @@ function Character:fall_off()
 	self.velocity.y = 0.0
 	self.grounded = false
 	self:set_anim("jump")
+end
+
+function Character:forward()
+	if self.flipped then
+		return -1.0
+	end
+	return 1.0
 end
 
 function Character:atk_punch()
@@ -180,16 +190,18 @@ end
 function Character:atk_special()
 	if self.attacking then
 	else
+		self:set_anim("special")
 		self.attacking = true
 		self.velocity.x = 0.0
 		if self.velocity.y > 0.0 then
 			self.velocity.y = 0.0
 		end
+		self.special:use(self)
 	end
 end
 
-function Character:update(dt)
-	self.controller:update(self, dt)
+function Character:update(dt, other_player)
+	self.controller:update(self, dt, other_player)
 	if self.attacking then
 		if self.animations[self.animation].ticks > 0 then
 			if self.grounded then

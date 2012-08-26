@@ -10,7 +10,7 @@ function PlayerController.new(controls)
 	return p
 end
 
-function PlayerController:input(c, dt)	
+function PlayerController:input(c, dt, other_player)	
 	if c.attacking then
 	else
 		if c.grounded then
@@ -47,10 +47,12 @@ function PlayerController:input(c, dt)
 			c:atk_punch()
 		elseif love.keyboard.isDown(self.controls["kick"]) then
 			c:atk_kick()
+		elseif love.keyboard.isDown(self.controls["special"]) then
+			c:atk_special()
 		end
 	end
 end
 
-function PlayerController:update(character, dt)
-	self:input(character, dt)
+function PlayerController:update(character, dt, other_player)
+	self:input(character, dt, other_player)
 end
