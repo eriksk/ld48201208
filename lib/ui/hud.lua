@@ -16,6 +16,8 @@ function Hud.new(game_scene)
 	h.paused_text = TextField.new("paused", screen_width / 2.0, 100, big_font, Color.white())
 	h.resume_text = TextField.new("space: resume", screen_width / 2.0, screen_height / 2.0, font, Color.green())
 	h.exit_text = TextField.new("escape: exit", screen_width / 2.0, (screen_height / 2.0) + 32, font, Color.red())
+	h.game_over_text = TextField.new("game over", screen_width / 2.0, 100, big_font, Color.white())
+	h.press_space_text = TextField.new("press space", screen_width / 2.0, screen_height / 2.0, font, Color.red())
 
 	return h
 end
@@ -34,7 +36,7 @@ function Hud:draw()
 	if self.game.state == "game_over" then
 		self:draw_game_over_screen(p1, p2)
 	elseif self.game.state == "round_over" then
-		self:draw_game_over_screen(p1, p2)
+		self:draw_round_over_screen(p1, p2)
 	end
 	if self.game.paused then
 		set_color(Color.new(0,0,0, 200))
@@ -46,6 +48,22 @@ function Hud:draw()
 end
 
 function Hud:draw_game_over_screen(p1, p2)
+	set_color(Color.new(0,0,0, 200))
+	love.graphics.rectangle("fill", 0, 0, screen_width, screen_height)
+	self.game_over_text:draw()
+	self.press_space_text:draw()
+
+	set_color(Color.green())
+	local x = 300
+	local y = 200
+	if p1.score > p2.score then
+		love.graphics.print("Player 1 Wins!", x, y)
+	else
+		love.graphics.print("Player 1 Wins!", x, y)		
+	end
+end
+
+function Hud:draw_round_over_screen(p1, p2)
 	if p1.health <= 0.0 then
 		
 	elseif p2.health <= 0.0 then

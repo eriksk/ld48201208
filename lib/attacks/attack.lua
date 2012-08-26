@@ -1,11 +1,12 @@
 Attack = {}
 Attack.__index = Attack
 
-function Attack.new(owner, position, direction, damage, persistent, texture, sound, velocity, force)
+function Attack.new(owner, position, direction, damage, persistent, texture, sound, velocity, force, gravity)
 	local a = {}
 	setmetatable(a, Attack)
 
 	a.owner = owner
+	a.gravity = gravity or false
 	a.force = force or 0.01
 	a.position = position
 	a.direction = direction
@@ -30,6 +31,9 @@ end
 
 function Attack:update(dt)
 	if self.texture then
+		if self.gravity then
+			self.velocity.y = self.velocity.y + gravity * dt
+		end
 		self.position.x = self.position.x + self.velocity.x * dt
 		self.position.y = self.position.y + self.velocity.y * dt
 	end

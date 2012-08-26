@@ -1,23 +1,23 @@
-Stars = {}
-Stars.__index = Stars
+BallBlast = {}
+BallBlast.__index = BallBlast
 
-function Stars.new()
+function BallBlast.new()
 	local h = {}
-	setmetatable(h, Stars)
+	setmetatable(h, BallBlast)
 
 	return h
 end
 
-function Stars:use(character)
-	-- register Stars
+function BallBlast:use(character)
+	-- register BallBlast
 	local direction = "right"
-	local damage = 5
+	local damage = 10
 	if character.flipped then
 		direction = "left"
 	end
 	local angle = 0
-	for i=0,10 do
-		angle = to_radians(lerp(-90, 0, i / 10.0))
+	for i=0,12 do
+		angle = to_radians(lerp(0, 360, i / 12.0))
 		character.attack_manager:reg_atk(
 			Attack.new(
 				character.id, 
@@ -25,9 +25,9 @@ function Stars:use(character)
 				direction,
 				damage,
 				true,
-				character.attack_manager.textures[4],
+				character.attack_manager.textures[6],
 				"hadouken",
-				Vec2.new(character:forward() * 0.2, math.sin(angle)),
+				Vec2.new(math.cos(angle), math.sin(angle)),
 				1.0, true)
 		)
 	end

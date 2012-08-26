@@ -18,10 +18,6 @@ win:
 * Screencaps
 
 ## working on
-* Special evolutionary attacks, reuse is key
-* And fix cooldown on specials
-* 3..2..1.. FIGHT!
-* Rounds
 * Pretty title screen, LOGO!
 * Wiggle function for text!
 
@@ -41,3 +37,7 @@ win:
 * Game menu
 * Show controls
 * AI
+* Rounds
+* And fix cooldown on specials
+* 3..2..1.. FIGHT!
+* Special evolutionary attacks, reuse is key

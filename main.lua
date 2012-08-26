@@ -6,6 +6,7 @@ require "lib/attacks/specials/hadouken"
 require "lib/attacks/specials/green_ball"
 require "lib/attacks/specials/spread"
 require "lib/attacks/specials/stars"
+require "lib/attacks/specials/ball_blast"
 
 require "lib/audio/audio_manager"
 require "lib/characters/character"
@@ -58,6 +59,7 @@ function love.load()
 	audio_manager:add_sound("suck_it", ".ogg")
 	audio_manager:add_sound("swoosh_1", ".ogg")
 	audio_manager:add_sound("swoosh_2", ".ogg")
+	audio_manager:add_sound("fight", ".ogg")
 	audio_manager:add_sound("hadouken", ".wav")
 
 	audio_manager:add_song("menu")

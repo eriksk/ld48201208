@@ -64,6 +64,7 @@ function GameScene:load(params)
 	local p2 = Character.new("player", screen_width - 100, 300, p2_controller, self.attack_manager)
 	p2:set_dir("left")
 	self.players:add(p2)
+	p2:set_special(BallBlast.new())
 
 	TiledMap_Load("content/maps/map1.tmx", 32, "content/gfx/tiles.png")
 
@@ -80,20 +81,20 @@ end
 
 function GameScene:round_over(winner, loser)
 	self.state = "round_over"
-	self.round_wait = 1000
+	self.round_wait = 2000
 	audio_manager:play_sound("k_o")
 	winner.score = winner.score + 1
 	loser:evolve()
-	print("winner:" .. winner.id)
-	print("loser:" .. loser.id)
-	-- TODO: update score, evolve loser until max
-	-- TODO: check for game over?
+	if winner.score == AttackFactory.max() then
+		self:game_over(winner, loser)
+	end
 end
 
 function GameScene:next_round()
 	self.players:first():reset(100)
 	self.players:last():reset(screen_width - 100)
 	self.state = "running"
+	audio_manager:play_sound("fight")
 end
 
 function GameScene:update(dt)
@@ -149,15 +150,14 @@ function GameScene:update(dt)
 			end
 		end
 	elseif self.state == "game_over" then
+		if love.keyboard.isDown(" ") then
+			self.scene_manager:set_scene("select_players")
+		end
 	elseif self.state == "round_over" then
 		self.round_wait = self.round_wait - dt
 		if self.round_wait < 0.0 then
 			self:next_round()
 		end
-	end
-
-	if love.keyboard.isDown("return") then
-		self.scene_manager:set_scene("menu")
 	end
 end
 

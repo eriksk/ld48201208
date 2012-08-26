@@ -8,6 +8,12 @@ function AttackFactory.get(stage)
 		return Spread.new()
 	elseif stage == 3 then
 		return Stars.new()
+	elseif stage == 4 then
+		return BallBlast.new()
 	end
 	return nil
+end
+
+function AttackFactory.max()
+	return 5
 end

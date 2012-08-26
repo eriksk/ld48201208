@@ -44,7 +44,7 @@ function AttackManager:update(characters, dt)
 	-- clear attacks
 	for i,attack in pairs(self.attacks) do		
 		if attack then
-			if attack.is_hit or attack.position.x < -100 or attack.position.x > screen_width + 100 then
+			if attack.is_hit or attack.position.x < -100 or attack.position.x > screen_width + 100 or attack.position.y < -100 or attack.position.y > screen_height + 100 then
 				table.remove(self.attacks, i) --self.attacks[i] = nil
 			end
 			if attack.persistent then
