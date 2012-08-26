@@ -9,7 +9,6 @@ Start: random attack
 win:
 
 ## coming up
-* Death animation in slow-mo, BLOOOOOD!
 * .app
 * .exe
 * linux?
@@ -18,10 +17,13 @@ win:
 * Screencaps
 
 ## working on
-* Pretty title screen, LOGO!
+* Colorize p2
+* Check for TODO:s
 * Wiggle function for text!
+* Caption
 
 ## done
+* Pretty title screen, LOGO!
 * Menu
 * Sounds
 * Music

@@ -24,6 +24,7 @@ end
 
 function SelectPlayersScene:on_activated()
 	self.current = 0.0
+	audio_manager:play_song("song2")
 end
 
 function SelectPlayersScene:continue()

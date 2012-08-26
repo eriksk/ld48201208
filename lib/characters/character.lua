@@ -24,7 +24,7 @@ function Character.new(filename, x, y, controller, attack_manager)
 	s.controller = controller
 	s.attacking = false
 	s.attack_manager = attack_manager
-	s.max_health = 100
+	s.max_health = 1000
 	s.health = s.max_health
 	s.generation = 0
 	s.special = AttackFactory.get(s.generation)
@@ -116,7 +116,7 @@ function Character:hit(direction, damage, force)
 	self:set_anim("hit")
 	self.health = self.health - damage
 	if math.random() > 0.9 then
-		force = force * 5.0 -- go nuts!
+		force = force * 2.0 -- go nuts!
 	end
 	self.velocity.x = math.cos(angle) * force
 	self.velocity.y = math.sin(angle) * force

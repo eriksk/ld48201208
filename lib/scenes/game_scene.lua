@@ -64,7 +64,6 @@ function GameScene:load(params)
 	local p2 = Character.new("player", screen_width - 100, 300, p2_controller, self.attack_manager)
 	p2:set_dir("left")
 	self.players:add(p2)
-	p2:set_special(BallBlast.new())
 
 	TiledMap_Load("content/maps/map1.tmx", 32, "content/gfx/tiles.png")
 
@@ -82,6 +81,7 @@ end
 function GameScene:round_over(winner, loser)
 	self.state = "round_over"
 	self.round_wait = 2000
+	self.attack_manager:reset()
 	audio_manager:play_sound("k_o")
 	winner.score = winner.score + 1
 	loser:evolve()

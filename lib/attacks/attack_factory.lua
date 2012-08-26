@@ -10,10 +10,12 @@ function AttackFactory.get(stage)
 		return Stars.new()
 	elseif stage == 4 then
 		return BallBlast.new()
+	elseif stage == 5 then
+		return FireRain.new()
 	end
 	return nil
 end
 
 function AttackFactory.max()
-	return 5
+	return 6
 end

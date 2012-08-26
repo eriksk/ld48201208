@@ -7,6 +7,7 @@ require "lib/attacks/specials/green_ball"
 require "lib/attacks/specials/spread"
 require "lib/attacks/specials/stars"
 require "lib/attacks/specials/ball_blast"
+require "lib/attacks/specials/fire_rain"
 
 require "lib/audio/audio_manager"
 require "lib/characters/character"
@@ -64,6 +65,7 @@ function love.load()
 
 	audio_manager:add_song("menu")
 	audio_manager:add_song("song1")
+	audio_manager:add_song("song2")
 
 	scene_manager = SceneManager.new(audio_manager)
 	scene_manager:add_scene(GameScene.new(scene_manager))
@@ -90,7 +92,7 @@ function love.update(dt)
 	dt = dt * 1000.0 -- to ms
 	if dt_slow_down > 0.0 then
 		dt_slow_down = dt_slow_down - dt
-		dt = dt * 0.5
+		dt = dt * 0.7
 	end
 
 	-- global timer

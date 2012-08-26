@@ -17,6 +17,12 @@ function AttackManager:reg_atk(attack)
 	audio_manager:play_sound(attack.sound)
 end
 
+function AttackManager:reset()
+	for i,attack in pairs(self.attacks) do
+		table.remove(self.attacks, i)
+	end
+end
+
 function AttackManager:update(characters, dt)	
 	for i=1,#self.attacks do
 		local attack = self.attacks[i]

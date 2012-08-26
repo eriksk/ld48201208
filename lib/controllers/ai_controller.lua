@@ -46,7 +46,7 @@ function AIController:input(c, dt, other_player)
 					end
 					self.current = self.current + dt
 					if self.current > self.duration then
-						if math.random() > 0.7 then
+						if math.random() > 0.9 then
 							self:set_job(3, other_player)
 						else
 							self:set_job(0, other_player)
@@ -77,11 +77,11 @@ end
 function AIController:get_job()
 	local job = 0
 	local rand = math.random()
-	if rand > 0.9 then
+	if rand > 0.8 then
 		job = 4
-	elseif rand > 0.8 then
-		job = 2 --kick
 	elseif rand > 0.7 then
+		job = 2 --kick
+	elseif rand > 0.75 then
 		job = 3 -- jump
 	elseif rand > 0.4 then
 		job = 1 --punch
