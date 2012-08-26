@@ -36,8 +36,8 @@ function Character.new(filename, x, y, controller, attack_manager)
 	s.animations["slide"] = Animation.new({27, 28}, 50)
 	s.animations["punch"] = Animation.new({36, 37, 38}, 50)
 	s.animations["kick"] = Animation.new({45, 46, 47}, 100)
-	s.animations["special"] = Animation.new({0}, 500)
-	s.animations["hit"] = Animation.new({0}, 100)
+	s.animations["special"] = Animation.new({63, 64, 65, 66}, 100)
+	s.animations["hit"] = Animation.new({54}, 100)
 	s.flipped = false
 	s:fall_off()
 
@@ -80,7 +80,7 @@ function Character:rotate(by)
 	self.rotation = self.rotation + by
 end
 
-function Character:hit(direction, damage)
+function Character:hit(direction, damage, force)
 	local angle = 0
 	if direction == "left" then
 		angle = to_radians(180)
@@ -95,8 +95,11 @@ function Character:hit(direction, damage)
 	end
 	self:set_anim("hit")
 	self.health = self.health - damage
-	self.velocity.x = math.cos(angle) * damage * 0.01
-	self.velocity.y = math.sin(angle) * damage * 0.01
+	if math.random() > 0.9 then
+		force = force * 5.0 -- go nuts!
+	end
+	self.velocity.x = math.cos(angle) * force
+	self.velocity.y = math.sin(angle) * force
 end
 
 function Character:move(dir, dt)
@@ -140,7 +143,7 @@ function Character:atk_punch()
 	else
 		self:set_anim("punch")
 		self.attacking = true
-		self.velocity.x = 0.0
+		self.velocity.x = self:forward() * 0.2
 		if self.velocity.y > 0.0 then
 			self.velocity.y = 0.0
 		end
@@ -154,7 +157,7 @@ function Character:atk_punch()
 		self.attack_manager:reg_atk(
 			Attack.new(
 				self.id, 
-				Vec2.new(self.position.x + (self.width * clamp(self.scale.x, -1.0, 1.0)), self.position.y), 
+				Vec2.new(self.position.x + (self.width * clamp(self.scale.x, -1.0, 1.0) * 0.7), self.position.y), 
 				direction,
 				damage)
 		)
@@ -166,7 +169,7 @@ function Character:atk_kick()
 	else
 		self:set_anim("kick")
 		self.attacking = true
-		self.velocity.x = 0.0
+		self.velocity.x = self:forward() * 0.2
 		if self.velocity.y > 0.0 then
 			self.velocity.y = 0.0
 		end
@@ -180,7 +183,7 @@ function Character:atk_kick()
 		self.attack_manager:reg_atk(
 			Attack.new(
 				self.id, 
-				Vec2.new(self.position.x + (self.width * clamp(self.scale.x, -1.0, 1.0)), self.position.y), 
+				Vec2.new(self.position.x + (self.width * clamp(self.scale.x, -1.0, 1.0) * 0.8), self.position.y), 
 				direction,
 				damage)
 		)
@@ -202,7 +205,7 @@ end
 
 function Character:update(dt, other_player)
 	self.controller:update(self, dt, other_player)
-	if self.attacking then
+	if self.attacking or self.animation == "hit" then
 		if self.animations[self.animation].ticks > 0 then
 			if self.grounded then
 				self:set_anim("idle")
@@ -237,7 +240,11 @@ function Character:update(dt, other_player)
 		end
 	end
 
-	self.velocity.x = clamp(self.velocity.x, -self.max_speed, self.max_speed)
+	-- limit speed unless hit, you can't move then anyways so...
+	if self.animation == "hit" then
+	else
+		self.velocity.x = clamp(self.velocity.x, -self.max_speed, self.max_speed)
+	end
 
 	self.position.x = self.position.x + self.velocity.x * dt
 	self.position.y = self.position.y + self.velocity.y * dt

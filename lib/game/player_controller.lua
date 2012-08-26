@@ -23,7 +23,8 @@ function PlayerController:input(c, dt, other_player)
 				c:set_anim("walk")
 				c:set_dir("right")
 			else
-				if c.velocity.x > 0.0 or c.velocity.x < 0.0 then
+				if c.animation == "hit" then
+				elseif c.velocity.x > 0.0 or c.velocity.x < 0.0 then
 					c:set_anim("slide")
 				else
 					c:set_anim("idle")

@@ -24,6 +24,7 @@ function Hadouken:use(character)
 			true,
 			character.attack_manager.textures[1],
 			"hadouken",
-			Vec2.new(character:forward() * 0.8, 0.0))
+			Vec2.new(character:forward() * 0.8, 0.0),
+			1.0)
 	)
 end

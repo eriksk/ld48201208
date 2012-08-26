@@ -1,11 +1,12 @@
 Attack = {}
 Attack.__index = Attack
 
-function Attack.new(owner, position, direction, damage, persistent, texture, sound, velocity)
+function Attack.new(owner, position, direction, damage, persistent, texture, sound, velocity, force)
 	local a = {}
 	setmetatable(a, Attack)
 
 	a.owner = owner
+	a.force = force or 0.01
 	a.position = position
 	a.direction = direction
 	a.damage = damage

@@ -38,7 +38,7 @@ function GameScene:load()
 	}
 
 	self.players:add(Character.new("player", 100, 300, PlayerController.new(p1_controls), self.attack_manager))
-	local p2 = Character.new("player2", screen_width - 100, 300, AIController.new(), self.attack_manager)
+	local p2 = Character.new("player", screen_width - 100, 300, AIController.new(), self.attack_manager)
 	p2:set_dir("left")
 	self.players:add(p2)
 

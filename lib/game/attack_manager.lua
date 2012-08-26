@@ -32,7 +32,7 @@ function AttackManager:update(characters, dt)
 					if character:contains(attack.position.x, attack.position.y) then
 						attack:hit()
 						self.particle_manager:add_stars(character.position.x, character.position.y, 5)
-						character:hit(attack.direction, attack.damage)
+						character:hit(attack.direction, attack.damage, attack.force)
 						audio_manager:play_sound("hit_" .. (1 + math.floor((math.random() * 3))))
 						audio_manager:play_sound("ouch_" .. (1 + math.floor((math.random() * 3))))
 						dt_slow_down = 300

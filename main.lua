@@ -72,7 +72,7 @@ function initialize()
 	love.graphics.setBackgroundColor(135, 206, 250)
 	content_path = "content/"
 	texture_filter = "nearest"
-	gravity = 0.001
+	gravity = 0.0008
 	friction = 0.001
 	ground = 500
 	dt_slow_down = 0
