@@ -1,28 +1,24 @@
--- framework
-require "lib/helpers"
-require 'lib/color'
-require "lib/list"
-require "lib/vec2"
-require "lib/sprite"
-require 'lib/text_field'
-require 'lib/audio_manager'
-require 'lib/scene_manager'
-require 'lib/game_scene'
-require 'lib/menu_scene'
-require 'lib/animation'
-require 'lib/tmx_map'
-require 'lib/particle_manager'
-require 'lib/particle'
-
--- game specifics
-require 'lib/game/character'
-require 'lib/game/player_controller'
-require 'lib/game/ai_controller'
-require 'lib/game/attack_manager'
-require 'lib/game/attack'
-require 'lib/game/hud'
---- special attacks
-require 'lib/game/specials/hadouken'
+require "lib/attacks/attack"
+require "lib/attacks/attack_manager"
+require "lib/attacks/specials/hadouken"
+require "lib/audio/audio_manager"
+require "lib/characters/character"
+require "lib/controllers/player_controller"
+require "lib/controllers/ai_controller"
+require "lib/particles/particle"
+require "lib/particles/particle_manager"
+require "lib/scenes/scene_manager"
+require "lib/scenes/menu_scene"
+require "lib/scenes/game_scene"
+require "lib/tmx/tmx_map"
+require "lib/ui/hud"
+require "lib/utils/animation"
+require "lib/utils/color"
+require "lib/utils/helpers"
+require "lib/utils/list"
+require "lib/utils/sprite"
+require "lib/utils/text_field"
+require "lib/utils/vec2"
 
 function love.load()
 	font = love.graphics.newFont("content/fonts/font.ttf", 24)
