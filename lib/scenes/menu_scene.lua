@@ -54,12 +54,16 @@ function MenuScene:update(dt)
 			self:title_done()
 		end
 	elseif self.state == "waiting" then
+		-- allow the game to quit
+		if love.keyboard.isDown("escape") then
+			love.event.push("quit")
+		end
 	else
 	end
 	
 	-- check for input to continue and change screen
 	if love.keyboard.isDown(" ") then
-		self.scene_manager:set_scene("game")
+		self.scene_manager:set_scene("select_players")
 	end
 end
 

@@ -9,20 +9,24 @@ Start: random attack
 win:
 
 ## coming up
-* Death animation in slow-mo
-* Hit animation? or is sliding enough?
-* Menu
-* Game menu, ai/player etc. Show controls...
+* Death animation in slow-mo, BLOOOOOD!
 * .app
 * .exe
 * linux?
+* Icon
+* Video
+* Screencaps
 
 ## working on
-* Special evolutionary attacks
-	* Hadouken
-	* Remake particlemanager to handle different types
+* Special evolutionary attacks, reuse is key
+* And fix cooldown on specials
+* 3..2..1.. FIGHT!
+* Rounds
+* Pretty title screen, LOGO!
+* Wiggle function for text!
 
 ## done
+* Menu
 * Sounds
 * Music
 * Hud
@@ -31,3 +35,9 @@ win:
 * Animations
 * Map
 * Tiles
+* Remake particlemanager to handle different types
+* Hadouken
+* Hit animation? or is sliding enough?
+* Game menu
+* Show controls
+* AI

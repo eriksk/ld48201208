@@ -38,7 +38,7 @@ function AIController:input(c, dt, other_player)
 					c:set_anim("walk")
 					c:set_dir(self.dir)
 					if self:in_front_of(c, other_player) then
-						if self.target.y < c.position.y then
+						if other_player.position.y < c.position.y and math.random() > 0.9 then
 							self:set_job(3, other_player)
 						else
 							self:set_job(self:get_job(), other_player)
@@ -61,43 +61,16 @@ function AIController:input(c, dt, other_player)
 				elseif self.job == 3 then -- jump
 					c:jump()
 					self:set_job(0, other_player)
+				elseif self.job == 4 then -- special
+					c:atk_special()
+					self:set_job(0, other_player)
 				else
 					self:set_job(0, other_player)
 					c:set_anim("idle")
 				end
 			end
-			--elseif love.keyboard.isDown(self.controls["right"]) then
-			--	c:move("right", dt)
-			--	c:set_anim("walk")
-			--	c:set_dir("right")
-			--else
-			--	if c.velocity.x > 0.0 or c.velocity.x < 0.0 then
-			--		c:set_anim("slide")
-			--	else
-			--		c:set_anim("idle")
-			--	end
-			--end
---
-			--if love.keyboard.isDown(self.controls["jump"]) then
-			--	c:jump()
-			--end
 		else
-			--if love.keyboard.isDown(self.controls["left"]) then
-			--	c:move("left", dt)
-			--	c:set_dir("left")
-			--elseif love.keyboard.isDown(self.controls["right"]) then
-			--	c:move("right", dt)
-			--	c:set_dir("right")
-			--else
-			--end
 		end
-		--if love.keyboard.isDown(self.controls["punch"]) then
-		--	c:atk_punch()
-		--elseif love.keyboard.isDown(self.controls["kick"]) then
-		--	c:atk_kick()
-		--elseif love.keyboard.isDown(self.controls["special"]) then
-		--	c:atk_special()
-		--end
 	end
 end
 
@@ -105,9 +78,11 @@ function AIController:get_job()
 	local job = 0
 	local rand = math.random()
 	if rand > 0.9 then
-		job = 2 --kick
+		job = 4
 	elseif rand > 0.8 then
-		job = 3
+		job = 2 --kick
+	elseif rand > 0.7 then
+		job = 3 -- jump
 	elseif rand > 0.4 then
 		job = 1 --punch
 	else

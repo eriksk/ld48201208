@@ -34,6 +34,10 @@ function Color.blue()
 	return Color.new(0, 0, 255)
 end
 
+function Color.yellow()
+	return Color.new(255, 255, 0)
+end
+
 function Color.black()
 	return Color.new(0, 0, 0)
 end

@@ -20,13 +20,14 @@ function SceneManager:add_scene(scene)
 	self.scenes[scene.name] = scene
 end
 
-function SceneManager:set_scene(name)
+function SceneManager:set_scene(name, params)
 	self.current_scene = name
 	-- stop all songs
 	self.audio_manager:stop_all()
-	self.scenes[self.current_scene]:on_activated()
+	self.scenes[self.current_scene]:on_activated(params)
 	-- reset color
 	set_color(Color.white())
+	return self.scenes[self.current_scene]
 end
 
 function SceneManager:update(dt)

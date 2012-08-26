@@ -6,12 +6,16 @@ function Hud.new(game_scene)
 	setmetatable(h, Hud)
 
 	h.game = game_scene
-	local font = love.graphics.newFont("content/fonts/font.ttf", 24)
-	h.health_p1_text = TextField.new("", 0, 0, font, Color.black())
-	h.health_p2_text = TextField.new("", 0, 0, font, Color.black())
+	local font = love.graphics.newFont("content/fonts/font.ttf", 36)
+	local small_font = love.graphics.newFont("content/fonts/font.ttf", 26)
+	h.health_p1_text = TextField.new("", 0, 0, small_font, Color.white())
+	h.health_p2_text = TextField.new("", 0, 0, small_font, Color.white())
 	local big_font = love.graphics.newFont("content/fonts/font.ttf", 128)
 	h.k_o_text = TextField.new("K.O", screen_width / 2.0, screen_height / 2.0, big_font, Color.red())
 	h.k_o_text:set_align_mode("center")
+	h.paused_text = TextField.new("paused", screen_width / 2.0, 100, big_font, Color.white())
+	h.resume_text = TextField.new("space: resume", screen_width / 2.0, screen_height / 2.0, font, Color.green())
+	h.exit_text = TextField.new("escape: exit", screen_width / 2.0, (screen_height / 2.0) + 32, font, Color.red())
 
 	return h
 end
@@ -29,6 +33,15 @@ function Hud:draw()
 
 	if self.game.state == "game_over" then
 		self:draw_game_over_screen(p1, p2)
+	elseif self.game.state == "round_over" then
+		self:draw_game_over_screen(p1, p2)
+	end
+	if self.game.paused then
+		set_color(Color.new(0,0,0, 200))
+		love.graphics.rectangle("fill", 0, 0, screen_width, screen_height)
+		self.paused_text:draw()
+		self.resume_text:draw()
+		self.exit_text:draw()
 	end
 end
 
@@ -49,21 +62,32 @@ function Hud:draw_game_over_screen(p1, p2)
 end
 
 function Hud:draw_hud_for_player(alignment, player, text_field)
-	
+
 	local x = 0
 	local y = 32
+	local border_x = 0
 	if alignment == "left" then
 		x = 100
+		border_x = x - 64
 	elseif alignment == "right" then
 		x = screen_width - 300
+		border_x = x - 32
 	end
 
-	text_field.position.x = x
-	text_field.position.y = y
-	text_field:set_text("Health: " .. player.health)
-	text_field:set_align_mode(alignment)
-	-- text_field:draw()
+	-- border
+	set_color(Color.new(0,0,0, 100))
+	love.graphics.rectangle("fill", border_x, y - 16, 300, 100)
+	set_color(Color.white())
+	love.graphics.rectangle("line", border_x, y - 16, 300, 100)
 
+	text_field.position.x = x + 100
+	text_field.position.y = y + 32
+	text_field:set_text("Generation: " .. player.generation)
+	text_field:set_align_mode(alignment)
+	text_field:draw()
+	text_field.position.y = text_field.position. y + 32
+	text_field:set_text("Score: " .. player.score)
+	text_field:draw()
 
 	set_color(Color.black())
 	love.graphics.rectangle("fill", x, y, 200, 16)

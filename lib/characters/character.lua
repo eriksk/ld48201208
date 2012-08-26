@@ -24,9 +24,11 @@ function Character.new(filename, x, y, controller, attack_manager)
 	s.controller = controller
 	s.attacking = false
 	s.attack_manager = attack_manager
-	s.max_health = 1000
+	s.max_health = 100
 	s.health = s.max_health
-	s.special = Hadouken.new()
+	s.generation = 0
+	s.special = AttackFactory.get(s.generation)
+	s.score = 0
 
 	s.animation = "jump"
 	s.animations = {}
@@ -42,6 +44,24 @@ function Character.new(filename, x, y, controller, attack_manager)
 	s:fall_off()
 
 	return s
+end
+
+function Character:reset(x)
+	self.health = self.max_health
+	self.velocity.x = 0
+	self.velocity.y = 0
+	self.position.x = x or 400
+	self.position.y = 300 
+	self:fall_off()
+end
+
+function Character:set_special(special)
+	self.special = special
+end
+
+function Character:evolve()
+	self.generation = self.generation + 1
+	self.special = AttackFactory.get(self.generation)
 end
 
 function Character:contains(x, y)

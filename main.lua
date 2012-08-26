@@ -1,15 +1,24 @@
 require "lib/attacks/attack"
 require "lib/attacks/attack_manager"
+require "lib/attacks/attack_factory"
+
 require "lib/attacks/specials/hadouken"
+require "lib/attacks/specials/green_ball"
+require "lib/attacks/specials/spread"
+require "lib/attacks/specials/stars"
+
 require "lib/audio/audio_manager"
 require "lib/characters/character"
 require "lib/controllers/player_controller"
 require "lib/controllers/ai_controller"
 require "lib/particles/particle"
 require "lib/particles/particle_manager"
+
 require "lib/scenes/scene_manager"
 require "lib/scenes/menu_scene"
 require "lib/scenes/game_scene"
+require "lib/scenes/select_players_scene"
+
 require "lib/tmx/tmx_map"
 require "lib/ui/hud"
 require "lib/utils/animation"
@@ -57,7 +66,8 @@ function love.load()
 	scene_manager = SceneManager.new(audio_manager)
 	scene_manager:add_scene(GameScene.new(scene_manager))
 	scene_manager:add_scene(MenuScene.new(scene_manager))
-	scene_manager:set_scene("game")
+	scene_manager:add_scene(SelectPlayersScene.new(scene_manager))
+	scene_manager:set_scene("menu")
 end
 
 function initialize()
@@ -83,12 +93,6 @@ function love.update(dt)
 
 	-- global timer
 	total_time = total_time + dt
-
-	-- allow the game to quit
-	-- TODO: remove before release
-	if love.keyboard.isDown("escape") then
-		love.event.push("quit")
-	end
 
 	scene_manager:update(dt)
 end
